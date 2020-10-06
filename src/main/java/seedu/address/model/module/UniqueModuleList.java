@@ -49,6 +49,7 @@ public class UniqueModuleList implements Iterable<Module> {
         internalList.add(toAdd);
     }
 
+
     /**
      * Replaces the module {@code target} in the list with {@code editedModule}.
      * {@code target} must exist in the list.
