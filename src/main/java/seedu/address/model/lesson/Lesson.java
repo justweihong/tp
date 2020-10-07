@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import seedu.address.model.commons.Address;
 
 /**
  * Represents a Lesson in the address book.
@@ -16,7 +15,6 @@ public class Lesson {
 
     private final Type type;
     private final LocalDate time;
-    private final Address location;
     private final double weightage;
 
     /**
@@ -24,13 +22,11 @@ public class Lesson {
      *
      * @param type
      * @param time
-     * @param location
      * @param weightage
      */
-    public Lesson(Type type, LocalDate time, Address location, double weightage) {
-        requireAllNonNull(type, time, location, weightage);
+    public Lesson(Type type, LocalDate time, double weightage) {
+        requireAllNonNull(type, time, weightage);
         this.time = time;
-        this.location = location;
         this.weightage = weightage;
         this.type = type;
     }
@@ -48,14 +44,13 @@ public class Lesson {
         Lesson otherLesson = (Lesson) other;
         return otherLesson.type.equals(type)
             && otherLesson.time.equals(time)
-            && otherLesson.location.equals(location)
             && (otherLesson.weightage == weightage);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(type, time, location, weightage);
+        return Objects.hash(type, time, weightage);
     }
 
     @Override
@@ -71,10 +66,6 @@ public class Lesson {
 
     public LocalDate getTime() {
         return time;
-    }
-
-    public Address getLocation() {
-        return location;
     }
 
     public double getWeightage() {

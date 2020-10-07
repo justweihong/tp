@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.commons.Address;
 import seedu.address.model.commons.Name;
 import seedu.address.model.tag.Tag;
 
@@ -24,18 +23,16 @@ public class Contact {
     private final Email email;
 
     // Data fields
-    private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Contact(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Contact(Name name, Phone phone, Email email, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
         this.tags.addAll(tags);
     }
 
@@ -51,9 +48,6 @@ public class Contact {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
-    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -95,14 +89,13 @@ public class Contact {
         return otherContact.getName().equals(getName())
             && otherContact.getPhone().equals(getPhone())
             && otherContact.getEmail().equals(getEmail())
-            && otherContact.getAddress().equals(getAddress())
             && otherContact.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, tags);
     }
 
     @Override
@@ -113,8 +106,6 @@ public class Contact {
             .append(getPhone())
             .append(" Email: ")
             .append(getEmail())
-            .append(" Address: ")
-            .append(getAddress())
             .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

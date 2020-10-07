@@ -33,7 +33,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.contact.AddContactCommand;
 import seedu.address.logic.parser.contact.AddContactCommandParser;
-import seedu.address.model.commons.Address;
 import seedu.address.model.commons.Name;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
@@ -121,10 +120,6 @@ public class AddContactCommandParserTest {
         // invalid email
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
             + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
-
-        // invalid address
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
-            + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Address.MESSAGE_CONSTRAINTS);
 
         // invalid tag
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB

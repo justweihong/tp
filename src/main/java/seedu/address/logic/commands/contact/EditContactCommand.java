@@ -21,7 +21,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.commons.Address;
 import seedu.address.model.commons.Name;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
@@ -42,7 +41,6 @@ public class EditContactCommand extends Command {
         + "[" + PREFIX_NAME + "NAME] "
         + "[" + PREFIX_PHONE + "PHONE] "
         + "[" + PREFIX_EMAIL + "EMAIL] "
-        + "[" + PREFIX_ADDRESS + "ADDRESS] "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_PHONE + "91234567 "
@@ -77,10 +75,9 @@ public class EditContactCommand extends Command {
         Name updatedName = editContactDescriptor.getName().orElse(contactToEdit.getName());
         Phone updatedPhone = editContactDescriptor.getPhone().orElse(contactToEdit.getPhone());
         Email updatedEmail = editContactDescriptor.getEmail().orElse(contactToEdit.getEmail());
-        Address updatedAddress = editContactDescriptor.getAddress().orElse(contactToEdit.getAddress());
         Set<Tag> updatedTags = editContactDescriptor.getTags().orElse(contactToEdit.getTags());
 
-        return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Contact(updatedName, updatedPhone, updatedEmail, updatedTags);
     }
 
     @Override
@@ -130,7 +127,6 @@ public class EditContactCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private Address address;
         private Set<Tag> tags;
 
         public EditContactDescriptor() {
@@ -144,7 +140,6 @@ public class EditContactCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
 
@@ -152,7 +147,7 @@ public class EditContactCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, tags);
         }
 
         public Optional<Name> getName() {
@@ -177,14 +172,6 @@ public class EditContactCommand extends Command {
 
         public void setEmail(Email email) {
             this.email = email;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
         }
 
         /**
@@ -222,7 +209,6 @@ public class EditContactCommand extends Command {
             return getName().equals(e.getName())
                 && getPhone().equals(e.getPhone())
                 && getEmail().equals(e.getEmail())
-                && getAddress().equals(e.getAddress())
                 && getTags().equals(e.getTags());
         }
     }

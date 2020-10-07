@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import seedu.address.model.commons.Address;
 import seedu.address.model.commons.Name;
 
 
@@ -18,7 +17,6 @@ public class Task {
 
     private final Name name;
     private final LocalDate time;
-    private final Address location;
     private final double weightage;
     private final String note;
 
@@ -27,15 +25,13 @@ public class Task {
      *
      * @param name
      * @param time
-     * @param location
      * @param weightage
      * @param note
      */
-    public Task(Name name, LocalDate time, Address location, double weightage, String note) {
-        requireAllNonNull(name, time, location, weightage, note);
+    public Task(Name name, LocalDate time, double weightage, String note) {
+        requireAllNonNull(name, time, weightage, note);
         this.name = name;
         this.time = time;
-        this.location = location;
         this.weightage = weightage;
         this.note = note;
     }
@@ -53,7 +49,6 @@ public class Task {
         Task otherLesson = (Task) other;
         return otherLesson.name.equals(name)
             && otherLesson.time.equals(time)
-            && otherLesson.location.equals(location)
             && (otherLesson.weightage == weightage)
             && otherLesson.note.equals(note);
     }
@@ -61,7 +56,7 @@ public class Task {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, time, location, weightage, note);
+        return Objects.hash(name, time, weightage, note);
     }
 
     @Override
