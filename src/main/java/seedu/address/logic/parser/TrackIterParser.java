@@ -10,16 +10,8 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.contact.AddContactCommand;
-import seedu.address.logic.commands.contact.ClearContactCommand;
-import seedu.address.logic.commands.contact.DeleteContactCommand;
-import seedu.address.logic.commands.contact.EditContactCommand;
-import seedu.address.logic.commands.contact.FindContactCommand;
-import seedu.address.logic.commands.contact.ListContactCommand;
-import seedu.address.logic.parser.contact.AddContactCommandParser;
-import seedu.address.logic.parser.contact.DeleteContactCommandParser;
-import seedu.address.logic.parser.contact.EditContactCommandParser;
-import seedu.address.logic.parser.contact.FindContactCommandParser;
+import seedu.address.logic.commands.contact.*;
+import seedu.address.logic.parser.contact.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
 
@@ -63,6 +55,9 @@ public class TrackIterParser {
             case DeleteContactCommand.COMMAND_WORD:
                 return new DeleteContactCommandParser().parse(arguments);
 
+            case RemarkContactCommand.COMMAND_WORD:
+                return new RemarkContactCommandParser().parse(arguments);
+
             case ClearContactCommand.COMMAND_WORD:
                 return new ClearContactCommand();
 
@@ -77,6 +72,7 @@ public class TrackIterParser {
             }
         case "":
             switch (commandWord) {
+
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
 
