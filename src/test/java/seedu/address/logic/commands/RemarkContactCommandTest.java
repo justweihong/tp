@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.contact.ClearContactCommand;
 import seedu.address.logic.commands.contact.RemarkContactCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -93,5 +94,28 @@ class RemarkContactCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTrackIter().getContactList().size());
 
         RemarkContactCommand remarkCommand = new RemarkContactCommand(outOfBoundIndex, new Remark(VALID_REMARK_BOB));
+        assertCommandFailure(remarkCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void equals() {
+        final RemarkContactCommand standardCommand = new RemarkContactCommand(INDEX_FIRST_PERSON,
+                new Remark(VALID_REMARK_AMY));
+        // same values -> returns true
+        RemarkContactCommand commandWithSameValues = new RemarkContactCommand(INDEX_FIRST_PERSON,
+                new Remark(VALID_REMARK_AMY));
+        assertTrue(standardCommand.equals(commandWithSameValues));
+        // same object -> returns true
+        assertTrue(standardCommand.equals(standardCommand));
+        // null -> returns false
+        assertFalse(standardCommand.equals(null));
+        // different types -> returns false
+        assertFalse(standardCommand.equals(new ClearContactCommand()));
+        // different index -> returns false
+        assertFalse(standardCommand.equals(new RemarkContactCommand(INDEX_SECOND_PERSON,
+                new Remark(VALID_REMARK_AMY))));
+        // different remark -> returns false
+        assertFalse(standardCommand.equals(new RemarkContactCommand(INDEX_FIRST_PERSON,
+                new Remark(VALID_REMARK_BOB))));
     }
 }
