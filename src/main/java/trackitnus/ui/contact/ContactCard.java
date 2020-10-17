@@ -35,8 +35,8 @@ public class ContactCard extends UiPart<Region> {
     private Label id;
     @FXML
     private Label phone;
-    @FXML
-    private Label address;
+//    @FXML
+//    private Label address;
     @FXML
     private Label email;
     @FXML
@@ -51,7 +51,7 @@ public class ContactCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(contact.getName().fullName);
         phone.setText(contact.getPhone().value);
-        address.setText(contact.getAddress().value);
+//        address.setText(contact.getAddress().value);
         email.setText(contact.getEmail().value);
         contact.getTags().stream()
             .sorted(Comparator.comparing(tag -> tag.tagName))
