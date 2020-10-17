@@ -23,12 +23,12 @@ public class TaskCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label date;
-    @FXML
-    private Label address;
+//    @FXML
+//    private Label address;
     @FXML
     private Label weightage;
-    @FXML
-    private Label remark;
+//    @FXML
+//    private Label remark;
 
     /**
      * Creates a {@code TaskCard} with the given {@code Task} and index to display.
@@ -39,9 +39,9 @@ public class TaskCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(task.getName().toString());
         date.setText(task.getDate().toString());
-        address.setText(task.getAddress().toString());
+//        address.setText(task.getAddress().toString());
         weightage.setText(String.valueOf(task.getWeightage()));
-        remark.setText(task.getRemark());
+//        remark.setText(task.getRemark());
     }
 
     @Override

@@ -134,12 +134,13 @@
     -fx-background-radius: 10;
 }
 
+
 .list-cell:filled:even {
-    -fx-background-color: #7A8AA0;
+    -fx-background-color: #59687C;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #4E5F78;
+    -fx-background-color: #59687C;
 }
 
 .list-cell:filled:selected #cardPane {
