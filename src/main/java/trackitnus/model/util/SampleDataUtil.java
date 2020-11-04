@@ -47,30 +47,20 @@ public class SampleDataUtil {
                 getTagSet("Professor", "CS2103T")),
             new Contact(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@gmail.com"),
                 getTagSet("colleagues")),
-            new Contact(new Name("Henry Chia Wai Kit"), new Phone("65161556"), new Email("hchia@comp.nus.edu.sg"),
-                getTagSet("Professor", "CS2030S")),
-            new Contact(new Name("Kor Ming Soon"), new Phone("91223345"), new Email("e0012345@u.nus.edu"),
-                getTagSet("TA", "CS2030S"))
         };
     }
 
     public static Module[] getSampleModules() {
         return new Module[]{
-            new Module(new Code("CS1101S"), new Name("Programming Methodology")),
             new Module(new Code("CS2100"), new Name("Computer Organisation")),
             new Module(new Code("CS2103T"), new Name("Software Engineering")),
             new Module(new Code("MA1101R"), new Name("Linear Algebra")),
             new Module(new Code("GER1000H"), new Name("Quantitative Reasoning")),
-            new Module(new Code("CS2030S"), new Name("Programming Methodology"))
         };
     }
 
     public static Lesson[] getSampleLessons() {
         return new Lesson[]{
-            new Lesson(new Code("CS1101S"), Type.LEC, new LessonDateTime(DayOfWeek.Fri, LocalTime.NOON,
-                LocalTime.NOON.plusHours(2)), new Address("TP-SR2")),
-            new Lesson(new Code("CS1101S"), Type.TUT, new LessonDateTime(DayOfWeek.Mon, LocalTime.NOON,
-                LocalTime.NOON.plusHours(2)), new Address("COM1-0208")),
             new Lesson(new Code("CS2100"), Type.LEC, new LessonDateTime(DayOfWeek.Tue, LocalTime.NOON.plusHours(4),
                 LocalTime.NOON.plusHours(6)), new Address("E-learning")),
             new Lesson(new Code("CS2100"), Type.LAB, new LessonDateTime(DayOfWeek.Mon, LocalTime.MIDNIGHT.plusHours(9),
@@ -87,12 +77,6 @@ public class SampleDataUtil {
                 LocalTime.NOON.plusHours(2)), new Address("E-learning")),
             new Lesson(new Code("GER1000H"), Type.SEC, new LessonDateTime(DayOfWeek.Fri, LocalTime.NOON.plusHours(2),
                 LocalTime.NOON.plusHours(4)), new Address("PGPH-FR4")),
-            new Lesson(new Code("CS2030S"), Type.LEC, new LessonDateTime(DayOfWeek.Mon, LocalTime.NOON,
-                LocalTime.NOON.plusHours(2)), new Address("E-learning")),
-            new Lesson(new Code("CS2030S"), Type.REC, new LessonDateTime(DayOfWeek.Wed, LocalTime.NOON,
-                LocalTime.NOON.plusHours(1)), new Address("LT19")),
-            new Lesson(new Code("CS2030S"), Type.LAB, new LessonDateTime(DayOfWeek.Fri, LocalTime.NOON,
-                LocalTime.NOON.plusHours(2)), new Address("E-learning")),
         };
     }
 
@@ -105,8 +89,6 @@ public class SampleDataUtil {
                 new Code("CS2100"), ""),
             new Task(new Name("Catch up on Pipelining webcast"), LocalDate.now().plusDays(-2),
                 new Code("CS2100"), "focus on latency and data forwarding"),
-            new Task(new Name("Do this week's Mission"), LocalDate.now().plusDays(3),
-                new Code("CS1101S"), "Recursion"),
             new Task(new Name("Work on the final report"), LocalDate.now().plusDays(0),
                 new Code("GER1000H"), "min 500 words"),
             new Task(new Name("Study for Final Exam"), ParserUtil.parseValidDate("05/11/2020"),
@@ -114,10 +96,7 @@ public class SampleDataUtil {
             new Task(new Name("Prepare for v1.4 Demo"), LocalDate.now().plusDays(0),
                 new Code("CS2103T"), "Ensure app runs smoothly"),
             new Task(new Name("Practical Exam on week 13"), LocalDate.now().plusDays(5),
-                new Code("CS2103T"), "remember to upgrade to the latest CATCHER"),
-            new Task(new Name("Code Project 2"), ParserUtil.parseValidDate("20/11/2020"),
-                new Code("CS2030S"),
-                "(deadline is at the end of reading week)")
+                new Code("CS2103T"), "remember to upgrade to the latest CATCHER")
         };
     }
 
