@@ -6,25 +6,27 @@ By: `Team W13-4` Since: `Aug 2020` License: `MIT`
 1. [**Introduction**](#introduction)
 2. [**Setting up**](#setup)
 3. [**Design**](#design)
-    1. [Architecture](#architecture)
-    2. [UI Component](#ui)
-        1. [Upcoming Tab](#upcoming-tab)
-        2. [Module Tab](#module-tab)
-        3. [Contact Tab](#contact-tab)
-    3. [Logic Component](#logic)
-    4. [Model Component](#model)
-    5. [Storage Component](#storage)
-    6. [Common Classes](#common)
+    * 3.1 [Architecture](#architecture)
+    * 3.2 [UI Component](#ui)
+        * 3.2.1 [Upcoming Tab](#upcoming-tab)
+        * 3.2.2 [Module Tab](#module-tab)
+    * 3.3 [Logic Component](#logic)
+    * 3.4 [Model Component](#model)
+    * 3.5 [Storage Component](#storage)
+    * 3.6 [Common Classes](#common)
 4. [**Implementation**](#implementation)
-    1. [Overview](#overview)
-        1. [Code Design Considerations](#code-des-cons)
-        2. [Feature Design Considerations](#feat-des-cons)
-    2. [Module Manager](#module-manager)
-    3. [Lesson Manager](#lesson-manager)
-    4. [Task Manager](#task-manager)
-    5. [Contact Manager](#contact-manager)
-    6. [Logging](#logging)
-    7. [Configuration](#config)
+    * 4.1 [Overview](#overview)
+        * 4.1.1 [Code Design Considerations](#code-des-cons)
+        * 4.1.2 [Feature Design Considerations](#feat-des-cons)        
+    * 4.2 [Module Manager](#module-manager)
+    * 4.3 [Lesson Manager](#lesson-manager)
+    * 4.4 [Task Manager](#task-manager)
+        * 4.4.1 [Rationale](#task-manager-rationale)
+        * 4.4.2 [Current Implementation](#task-manager-implementation)
+        * 4.4.3 [Design Considerations](#task-manager-design)
+    * 4.5 [Contact Manager](#contact-manager)
+    * 4.6 [Logging](#logging)
+    * 4.7 [Configuration](#config)
 5. [**Documentation**](#documentation)
 6. [**Testing**](#testing)
 7. [**Dev Ops**](#devops)<br>
@@ -37,7 +39,7 @@ By: `Team W13-4` Since: `Aug 2020` License: `MIT`
 [**Appendix G: Effort**](#appen-g) <br>
 --------------------------------------------------------------------------------------------------------------------
 
-## **Introduction** <a name="introduction"></a>
+## 1. **Introduction** <a name="introduction"></a>
 
 **TrackIt@NUS** is a desktop application for managing modules, lessons, tasks, and contacts, tailored to the needs of
  NUS students. It focuses on the _Command Line Interface (CLI)_ while providing users with a simple and clean
@@ -69,20 +71,20 @@ Any help on the development of TrackIt@NUS would be greatly appreciated, and the
 The purpose of this Developer Guide is to help you understand the design and implementation of **TrackIt@NUS** so
  that you can get started on your contributions to the app.
 
-## **Setting up, getting started** <a name="setup"></a>
+## 2. **Setting up, getting started** <a name="setup"></a>
 
 Refer to the guide [here](./SettingUp.md).
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Design** <a name="design"></a>
+## 3. **Design** <a name="design"></a>
 
 In this section, you will learn about the general design and structure TrackIt@NUS. Subsequently, this section will
  also describe and explain how each component in TrackIt@NUS works individually. TrackIt@NUS is coded using the
   [_Object Oriented Programming_](#oop) paradigm and it follows the [_Facade Pattern_](#facade-p) and [_Command
    Pattern_](#command-p) in software design.
 
-### **Architecture** <a name="architecture"></a>
+### 3.1 **Architecture** <a name="architecture"></a>
 
 <img src="images/ArchitectureDiagram.png" width="450" />
 
@@ -134,7 +136,7 @@ Another *Sequence Diagram* below shows how the components interact with each oth
 The sections below give more details of each component.
 
 
-### **UI Component** <a name="ui"></a>
+### 3.2 **UI Component** <a name="ui"></a>
 
 The Class Diagram below shows how the `UI` components and sections interact with one another.
 
@@ -153,7 +155,7 @@ The UI component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
-#### **Upcoming Tab** <a name="upcoming-tab"></a>
+#### 3.2.1 **Upcoming Tab** <a name="upcoming-tab"></a>
 
 The *Class Diagram* below shows how the components in the `Upcoming Tab` interact with each other.
 ![UiUpcomingTabClassDiagram](images/UiUpcomingTabClassDiagram.png)
@@ -170,7 +172,7 @@ Each of these tabs consists of one or more List Panels and its respective Card. 
 ` component of each of the List Cells is defined by the respective Card.
 The `Contacts Tab` and `Help Tab` follow the same structure as the *Class Diagram* above.
 
-#### **Module Tab** <a name="module-tab"></a>
+#### 3.2.2 **Module Tab** <a name="module-tab"></a>
 
 ![UiModuleTabClassDiagram.png](images/UiModuleTabClassDiagram.png)
 
@@ -185,7 +187,7 @@ This module tab consist of three panels (`LessonListPanel`, `TaskListPanel`, `Co
    
 #### **Contact Tab** <a name="contact-tab"></a>
 
-### **Logic Component** <a name="logic"></a>
+### 3.3 **Logic Component** <a name="logic"></a>
 
 ![Structure of the Logic Component](images/LogicClassDiagram.png)
 
@@ -206,7 +208,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 ` should end at the destroy marker (X) but due to a limitation in PlantUML, the lifeline continues to the end of the diagram
 </div>
 
-### **Model Component** <a name="model"></a>
+### 3.4 **Model Component** <a name="model"></a>
 
 ![Structure of the Model Component](images/ModelClassDiagram.png)
 
@@ -224,7 +226,7 @@ The `Model`,
 * These lists can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change
 * Does not depend on any of the other three components.
 
-### **Storage Component** <a name="storage"></a>
+### 3.5 **Storage Component** <a name="storage"></a>
 
 ![Structure of the Storage Component](images/StorageClassDiagram.png)
 
@@ -234,19 +236,19 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the app's data in json format and read it back.
 
-### **Common Classes** <a name="common"></a>
+### 3.6 **Common Classes** <a name="common"></a>
 
 The `commons` package contains classes used by multiple other components in the `trackitnus.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Implementation** <a name="implementation"></a>
+## 4 **Implementation** <a name="implementation"></a>
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### **Overview** <a name="overview"></a>
+### 4.1 **Overview** <a name="overview"></a>
 
-#### **Code Design Considerations** <a name="code-des-cons"></a>
+#### 4.1.1 **Code Design Considerations** <a name="code-des-cons"></a>
 ----
 **All commands in TrackIt@NUS follow a similar execution flow.**
 
@@ -299,9 +301,9 @@ A possible drawback of this uniform design is that it may not be the most approp
 * A function/method should only do what it's expected to do (which should be inferable from its name), and in no ways should it surprise the caller.
 
 ----
-#### **Feature Design Considerations** <a name="feat-des-cons"></a>
+#### 4.1.2 **Feature Design Considerations** <a name="feat-des-cons"></a>
 
-### **Module Manager** <a name="module-manager"></a>
+### 4.2 **Module Manager** <a name="module-manager"></a>
 
 TrackIt@NUS allows users to keep track of all modules that he/she is taking. Module (or more exactly module's code) is
  the link between Lesson, Task and Contact. The following diagram illustates their relationship:
@@ -319,7 +321,7 @@ TrackIt@NUS allows users to keep track of all modules that he/she is taking. Mod
  * `M delete CS2030` to delete the CS2030 module
  
 
-#### Current Implementation
+#### 4.3 Current Implementation
 
 In this section, we will outline the key operations of the Module Manager, namely:
 * `AddModuleCommand`
@@ -405,9 +407,9 @@ The following Sequence Diagram will illustrate the above steps in greater detail
 
 ![Edit Module Sequence Diagram](images/EditModuleSequenceDiagram.png)
 
-### **Lesson Manager** <a name="lesson-manager"></a>
+### 4.3 **Lesson Manager** <a name="lesson-manager"></a>
 
-### **Task Manager** <a name="task-manager"></a>
+### 4.4 **Task Manager** <a name="task-manager"></a>
 
 TrackIt@NUS allows users to keep track of his/her tasks. The task manager is one of TrackIt@NUS's basic components.
 
@@ -421,7 +423,7 @@ TrackIt@NUS also gives users a better understanding of their tasks by allowing u
  categories. Users can view overdue tasks, tasks on a specific day, future tasks (tasks that have deadlines more than
   a week away), and specific module tasks.
  
- #### Rationale
+ #### 4.4.1 Rationale <a name="task-manager-rationale"></a>
  
  Tasks are an integral part of any student's day-to-day life. Hence, TrackIt@NUS includes a task manager for students to 
  keep track of all their tasks. To better support NUS students, a task can either belong to a module or not. When
@@ -436,7 +438,7 @@ TrackIt@NUS also gives users a better understanding of their tasks by allowing u
  
 :bulb: To remove a task from a module, simply type `T edit INDEX m/` (use the `m/` prefix but leave the `MODULE_CODE` parameter empty).
 
-#### Current Implementation
+#### 4.4.2 Current Implementation <a name="task-manager-implementation"></a>
 
 In this section, we will outline the key operations of the Task Manager, namely:
 * `AddTaskCommand`
@@ -506,8 +508,7 @@ This is the sequence diagram of `getModuleTasks`.
 `getOverdueTasks`, `getDayUpcomingTasks`, and `getFutureTasks` are all implemented in very similar ways. In fact, the
  only differences are the predicates used.
 
-#### Design Considerations
-
+#### 4.4.3 Design Considerations <a name="task-manager-design"></a>
 As mentioned, a task may or may not belong to a module. In the case it does not, we store the module code as
  null. A task also may or may not have a remark. In the case it does not, we store the remark as the empty
   string. These 2 optional fields made the `EditTaskCommand` more challenging to implement. We wanted the user to be
@@ -519,9 +520,9 @@ The original AB3 implementation of edit commands, which would default to the ori
  field was null, would not be sufficient. Hence, we added 2 additional boolean variables - `isRemarkChanged` and
   `isCodeChanged`, to know whether users wanted to remove the existing module code or remark.
  
-### **Contact Manager** <a name="contact-manager"></a>
+### 4.5 **Contact Manager** <a name="contact-manager"></a>
 
-### **Logging** <a name="logging"></a>
+### 4.6 **Logging** <a name="logging"></a>
 
 * We are using `java.util.logging` package for logging.
 * The `LogsCenter` class is used to manage the logging levels and logging destinations
@@ -531,28 +532,28 @@ The original AB3 implementation of edit commands, which would default to the ori
  [Configuration](#config) for more info)
 * When choosing a level for a log message, follow the conventions stated below
 
-#### Logging Levels
+#### 4.6.1 Logging Levels <a name="logging-levels"></a>
 
 * `SEVERE`: A critical problem detected which may cause the termination of the application
 * `WARNING`: Can continue, but with caution
 * `INFO`: Information showing the noteworthy actions by the App
 * `FINE`: Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-### **Configuration** <a name="config"></a>
+### 4.7 **Configuration** <a name="config"></a>
 
 Certain properties of the application can be controlled (e.g user preferences file location, logging level) through the configuration file (default: `config.json`).
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Documentation** <a name="documentation"></a>
+## 5 **Documentation** <a name="documentation"></a>
 
 Refer to the guide [here](./Documentation.md)
 
-## **Testing** <a name="testing"></a>
+## 6 **Testing** <a name="testing"></a>
 
 Refer to the guide [here](./Testing.md)
 
-## **Dev Ops** <a name="devops"></a>
+## 7 **Dev Ops** <a name="devops"></a>
 
 Refer to the guide [here](./DevOps.md)
 
