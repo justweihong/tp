@@ -10,6 +10,14 @@ By: `Team W13-4` Since: `Aug 2020` License: `MIT`
     * 3.2 [UI Component](#ui)
         * 3.2.1 [Upcoming Tab](#upcoming-tab)
         * 3.2.2 [Module Tab](#module-tab)
+    * 3.3. [Logic Component](#logic)
+    * 3.4. [Model Component](#model)
+    * 3.5. [Storage Component](#storage)
+    * 3.6. [Common Classes](#common)
+    * 3.1 [Architecture](#architecture)
+    * 3.2 [UI Component](#ui)
+        * 3.2.1 [Upcoming Tab](#upcoming-tab)
+        * 3.2.2 [Module Tab](#module-tab)
     * 3.3 [Logic Component](#logic)
     * 3.4 [Model Component](#model)
     * 3.5 [Storage Component](#storage)
@@ -39,7 +47,7 @@ By: `Team W13-4` Since: `Aug 2020` License: `MIT`
 [**Appendix G: Effort**](#appen-g) <br>
 --------------------------------------------------------------------------------------------------------------------
 
-## 1. **Introduction** <a name="introduction"></a>
+## **1. Introduction** <a name="introduction"></a>
 
 **TrackIt@NUS** is a desktop application for managing modules, lessons, tasks, and contacts, tailored to the needs of
  NUS students. It focuses on the _Command Line Interface (CLI)_ while providing users with a simple and clean
@@ -71,22 +79,22 @@ Any help on the development of TrackIt@NUS would be greatly appreciated, and the
 The purpose of this Developer Guide is to help you understand the design and implementation of **TrackIt@NUS** so
  that you can get started on your contributions to the app.
 
-## 2. **Setting up, getting started** <a name="setup"></a>
+## **2. Setting up, getting started** <a name="setup"></a>
 
 Refer to the guide [here](./SettingUp.md).
 
 --------------------------------------------------------------------------------------------------------------------
 
-## 3. **Design** <a name="design"></a>
+## **3. Design** <a name="design"></a>
 
 In this section, you will learn about the general design and structure TrackIt@NUS. Subsequently, this section will
  also describe and explain how each component in TrackIt@NUS works individually. TrackIt@NUS is coded using the
   [_Object Oriented Programming_](#oop) paradigm and it follows the [_Facade Pattern_](#facade-p) and [_Command
    Pattern_](#command-p) in software design.
 
-### 3.1 **Architecture** <a name="architecture"></a>
+### **3.1 Architecture** <a name="architecture"></a>
 
-<img src="images/ArchitectureDiagram.png" width="450" />
+<img src="images/ArchitectureDiagram.png" width="450"/>
 
 The ***Architecture Diagram*** given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -136,26 +144,23 @@ Another *Sequence Diagram* below shows how the components interact with each oth
 The sections below give more details of each component.
 
 
-### 3.2 **UI Component** <a name="ui"></a>
+### **3.2 UI Component** <a name="ui"></a>
 
 The Class Diagram below shows how the `UI` components and sections interact with one another.
 
 ![UiClassDiagram.png](images/UiClassDiagram.png)
 
-The UI consists of a `MainWindow` that is made up of parts e.g. `SidePanel`, `StatusBarFooter`, `CommandBox
-` etc. All these, including the MainWindow, inherit from the abstract UiPart class. The UI also consist of 4 main
- components: `UpcomingTab`, `ModuleTab`, `ContactTab` and `HelpTab`. Each of these components consist of
-  several other classes as well. More details of this will be provided in the [sub-sections](#upcoming-tab).
+Each of these components may also consist of smaller parts known as cards. A card is a UI component that contains information that is shown to the user. e.g. A `TaskCard` will contain information about a particular task. More details can be found in the respective [sub-sections](#upcoming-tab).
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching .fxml files that
- are in the `src/main/resources/view` folder. For example, the layout of the `MainWindow` is specified in
-  `MainWindow.fxml`.
+The `UI` component uses **[JavaFx](#javafx)** UI framework. The layout of these UI parts are defined in matching `.fxml`  files that are in the `src/main/resources/view` folder. For example, the layout of the `MainWindow` is specified in `MainWindow.fxml`.
 
-The UI component,
+Each of these tabs consists of one or more List Panels and its respective Card. In each List Panel, the `Graphics` component of each of the List Cells is defined by the respective Card.
+
+The UI component:
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
-#### 3.2.1 **Upcoming Tab** <a name="upcoming-tab"></a>
+#### **3.2.1. Upcoming Tab** <a name="upcoming-tab"></a>
 
 The *Class Diagram* below shows how the components in the `Upcoming Tab` interact with each other.
 ![UiUpcomingTabClassDiagram](images/UiUpcomingTabClassDiagram.png)
@@ -168,11 +173,7 @@ The UI contains 4 types of `Tabs`:
 3. The `Contacts Tab`
 4. The `Help Tab`
 
-Each of these tabs consists of one or more List Panels and its respective Card. In each List Panel, the `Graphics
-` component of each of the List Cells is defined by the respective Card.
-The `Contacts Tab` and `Help Tab` follow the same structure as the *Class Diagram* above.
-
-#### 3.2.2 **Module Tab** <a name="module-tab"></a>
+#### **3.2.2. Module Tab** <a name="module-tab"></a>
 
 ![UiModuleTabClassDiagram.png](images/UiModuleTabClassDiagram.png)
 
@@ -182,12 +183,10 @@ This module tab consist of three panels (`LessonListPanel`, `TaskListPanel`, `Co
  corresponding cards (`LessonCard`, `TaskCard`, `ContactCard`). In all of the panels, the graphics of each of the
   `ListCell` is defined by the respective Cards.
   
-  The `ContactTab` and `HelpTab` both follow a similar structure as the above class diagram, except that they each
-   consist of 1 single panel.
-   
-#### **Contact Tab** <a name="contact-tab"></a>
+  The `ContactTab` and `HelpTab` both follow a **similar structure** as the above class diagram, except that they each
+   consist of **1 single panel instead of 3**.
 
-### 3.3 **Logic Component** <a name="logic"></a>
+### **3.3. Logic Component** <a name="logic"></a>
 
 ![Structure of the Logic Component](images/LogicClassDiagram.png)
 
@@ -208,7 +207,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 ` should end at the destroy marker (X) but due to a limitation in PlantUML, the lifeline continues to the end of the diagram
 </div>
 
-### 3.4 **Model Component** <a name="model"></a>
+### **3.4. Model Component** <a name="model"></a>
 
 ![Structure of the Model Component](images/ModelClassDiagram.png)
 
@@ -226,7 +225,7 @@ The `Model`,
 * These lists can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change
 * Does not depend on any of the other three components.
 
-### 3.5 **Storage Component** <a name="storage"></a>
+### **3.5. Storage Component** <a name="storage"></a>
 
 ![Structure of the Storage Component](images/StorageClassDiagram.png)
 
@@ -236,19 +235,19 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the app's data in json format and read it back.
 
-### 3.6 **Common Classes** <a name="common"></a>
+### **3.6. Common Classes** <a name="common"></a>
 
 The `commons` package contains classes used by multiple other components in the `trackitnus.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## 4 **Implementation** <a name="implementation"></a>
+## **4. Implementation** <a name="implementation"></a>
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### 4.1 **Overview** <a name="overview"></a>
+### **4.1. Overview** <a name="overview"></a>
 
-#### 4.1.1 **Code Design Considerations** <a name="code-des-cons"></a>
+#### **4.1.1. Code Design Considerations** <a name="code-des-cons"></a>
 ----
 **All commands in TrackIt@NUS follow a similar execution flow.**
 
@@ -301,9 +300,9 @@ A possible drawback of this uniform design is that it may not be the most approp
 * A function/method should only do what it's expected to do (which should be inferable from its name), and in no ways should it surprise the caller.
 
 ----
-#### 4.1.2 **Feature Design Considerations** <a name="feat-des-cons"></a>
+#### **4.1.2. Feature Design Considerations** <a name="feat-des-cons"></a>
 
-### 4.2 **Module Manager** <a name="module-manager"></a>
+### **4.2. Module Manager** <a name="module-manager"></a>
 
 TrackIt@NUS allows users to keep track of all modules that he/she is taking. Module (or more exactly module's code) is
  the link between Lesson, Task and Contact. The following diagram illustates their relationship:
@@ -658,7 +657,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | --------- | --------------- |
 | **Mainstream OS** <a name="oop"></a> | Windows, Linux, Unix, OS-X |
 | **CRUD** <a name="crud"></a> | The four basic functions any application should have: <ul><li>Create</li><li>Read</li><li>Update</li><li>Delete</li></ul> |
-| **Obect Oriented Programming** <a name="oop"></a> | A type of computer programming paradigm (software design) in which programmers define the data type of a data structure, and the types of operations (functions) that can be applied to the data structure. |
+| **Object Oriented Programming** <a name="oop"></a> | A type of computer programming paradigm (software design) in which programmers define the data type of a data structure, and the types of operations (functions) that can be applied to the data structure. |
 | **Facade Pattern** <a name="facade-p"></a> | A structural design pattern that provides a simplified (but limited) interface to a complex system of classes, library or framework. While decreasing the overall complexity of the application, it also helps to move unwanted dependencies to one place. |
 | **Command Pattern** <a name="command-p"></a>: | A Design Pattern that lets you encapsulate actions within Java classes. Of which, each class has an `execute()` method which is declared in the Command interface the class implements. |
 | **Command Line Interface (CLI)** <a name="cli"></a> | A text based user interface to view and manage computer files. |
